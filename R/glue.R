@@ -63,6 +63,7 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
   .open = "{", .close = "}", .na = "NA", .transformer = identity_transformer,
   .trim = TRUE) {
 
+
   # Perform all evaluations in a temporary environment
   if (is.null(.x)) {
     parent_env <- .envir
@@ -102,7 +103,15 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
     unnamed_args <- trim(unnamed_args)
   }
 
-  f <- function(expr) as.character(.transformer(expr, env))
+  as.char <- function(x, ...){
+    if(is.function(x)){
+      message <- glue('Argument is not an expression. It is of type {typeof(x)}.')
+      stop(message, call. = FALSE)
+    }
+    as.character(x, ...)
+  }
+
+  f <- function(expr) as.char(.transformer(expr, env))
 
   # Parse any glue strings
   res <- .Call(glue_, unnamed_args, f, .open, .close)

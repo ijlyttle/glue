@@ -103,7 +103,7 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
     unnamed_args <- trim(unnamed_args)
   }
 
-  f <- function(expr) as.char(.transformer(expr, env))
+  f <- function(expr) as.character(.transformer(expr, env))
 
   # Parse any glue strings
   res <- .Call(glue_, unnamed_args, f, .open, .close)

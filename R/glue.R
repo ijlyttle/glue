@@ -103,14 +103,6 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
     unnamed_args <- trim(unnamed_args)
   }
 
-  as.char <- function(x, ...){
-    if(is.function(x)){
-      message <- glue('Argument is not an expression. It is of type {typeof(x)}.')
-      stop(message, call. = FALSE)
-    }
-    as.character(x, ...)
-  }
-
   f <- function(expr) as.char(.transformer(expr, env))
 
   # Parse any glue strings
